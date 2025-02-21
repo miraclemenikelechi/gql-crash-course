@@ -1,4 +1,4 @@
-type ID = unknown;
+type ID = string;
 
 interface Author {
 	name: string;
