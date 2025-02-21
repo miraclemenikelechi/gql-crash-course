@@ -3,6 +3,36 @@ import gamesData from "./assets/games.json";
 import reviewsData from "./assets/reviews.json";
 
 export const resolvers = {
+	Mutation: {
+		addGame(parent, args, context) {
+			const game: Game = {
+				...args.game,
+				id: Math.floor(Math.random() * 99999).toString(),
+			};
+
+			gamesData.push(game);
+			return game;
+		},
+
+		deleteGame(parent, args, context) {
+			return gamesData.filter((game) => game.id !== (args.id as ID));
+		},
+
+		updateGame(parent, args, context) {
+			const games = gamesData.map((game) => {
+				if (game.id === (args.id as ID))
+					return {
+						...game,
+						...args.gameUpdate,
+					};
+
+				return game;
+			});
+
+			return games.find((game) => game.id === (args.id as ID));
+		},
+	},
+
 	Query: {
 		/**
 		 * get all authors

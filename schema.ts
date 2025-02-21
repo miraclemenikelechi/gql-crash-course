@@ -1,5 +1,17 @@
 export const typeDefs = `#graphql
 
+input AddGameInput {
+    title: String!
+    platform: [String!]!
+}
+
+input UpdateGameInput {
+    title: String
+    platform: [String!]
+}
+
+# ::::::::::::::::::::::::::::::::::::
+
 type Author {
     id: ID!
     # --------------------------------
@@ -28,11 +40,10 @@ type Review {
 
     # relationship
     author: Author!
-    # authorID: ID
-    # --------------------------------
     game: Game!
-    # gameID: ID
 }
+
+# ::::::::::::::::::::::::::::::::::::
 
 type Query {
     authors: [Author]
@@ -43,5 +54,13 @@ type Query {
     # --------------------------------
     reviews: [Review]
     review(id: ID!): Review
+}
+
+# ::::::::::::::::::::::::::::::::::::
+
+type Mutation {
+    addGame(game: AddGameInput!): Game
+    deleteGame(id: ID!): [Game]
+    updateGame(id: ID!, gameUpdate: UpdateGameInput!): Game
 }
 `;
